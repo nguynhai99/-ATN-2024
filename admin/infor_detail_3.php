@@ -32,7 +32,7 @@ $social_row = mysqli_fetch_array($social_query);
                             <p>Tên đăng nhập: <?php echo $row['username'] ?></p>
 
                             <p>
-                                <a href="dmk-nv&id=<?php echo $id ?>">
+                                <a href="index.php?module=dmk-nv&id=<?php echo $id ?>">
                                     <button class="btn btn-success btn-change-pass">Đổi mật khẩu</button>
                                 </a>
                             </p>
@@ -40,9 +40,43 @@ $social_row = mysqli_fetch_array($social_query);
                     </center>
                 </div>
             </div>
+            <div class="main-card mb-3 card ">
+                <div class=" header-form">
+                    <h5 class="card-title-ava">Quá trình công tác</h5>
+                </div>
+                <div class="card-body">
+                    <p> <?php if (empty($row['QTCT'])) {
+                            echo "Chưa có quá trình công tác";
+                        } else {
+                            $sql_qtct = "SELECT * From `tbl_quatrinhcongtac` where `id_nhanvien`='$id'";
+                            $query_qtct = mysqli_query($con, $sql_qtct);
+                            // $row_qtct = mysqli_fetch_array($query_qtct);
+                            while ($row_qtct = mysqli_fetch_array($query_qtct)) {
+                                $batdau = date('d/m/Y', strtotime($row_qtct['batdau']));
 
-           
-       
+                                $ketthuc = date('d/m/Y', strtotime($row_qtct['ketthuc']));
+                            
+                                $trangthai = $row_qtct['trangthai'];
+                                if ($trangthai == 1) {
+                                    $show = "Đang công tác";
+                                } else if ($trangthai == 2) {
+                                    $show = "Được bổ nhiệm";
+                                } else {
+                                    $show = "Nghỉ việc";
+                                }
+                                echo "- " . $show . " từ ngày " . $batdau . " đến ngày " . $ketthuc."<br>";
+                            }
+                        } ?>
+                    </p>
+                    <p> <a href="index.php?module=edit-qtct&id=<?php echo $id ?>">
+                            <button class="btn btn-success btn-change-pass">Thêm</button>
+                        </a></p>
+
+
+                </div>
+            </div>
+
+
         </div>
         <div class="col-lg-8">
 
@@ -131,8 +165,8 @@ $social_row = mysqli_fetch_array($social_query);
                         </p>
                         <hr>
                     </div>
-                   
-               
+
+
 
 
                     <!-- 3 -->
@@ -168,8 +202,8 @@ $social_row = mysqli_fetch_array($social_query);
                         </p>
                         <hr>
                     </div>
-                  
-              
+
+
 
 
 
@@ -219,8 +253,8 @@ $social_row = mysqli_fetch_array($social_query);
                 </div>
             </div>
 
-           
-       
+
+
         </div>
     </div>
 

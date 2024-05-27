@@ -32,7 +32,7 @@ if (isset($_POST['btn_addstaff'])) {
         $num = mysqli_num_rows($query);
         if (mysqli_num_rows($query) > 0) {
             $_SESSION['err'] = 'Tài khoản đã tồn tại !';
-            echo '<script>window.location="./index.php?module=add-user";</script>';
+            echo '<script>window.location="./index.php?module=add-nv";</script>';
         } else {
             $add_staff = "INSERT INTO `tbl_nhanvien`( `username`, `password`,  `Ho`, `Ten`, `NgaySinh`, `ThangSinh`, `NamSinh`, `SDT`, `Mail`, `GioiTinh`, `CMTND`, `NgayCap`, `NoiCap`, `ThuongTru`, `PhongBan`, `ChucVu`, `LoaiHD`, `NgayVaoLV`, `NgayLVCT`, `BDHDLD`, `TrangThai`, `quyen`) 
             VALUES ('$username','" . md5($password) . "','$Ho','$Ten','$NgaySinh','$ThangSinh','$NamSinh','$SDT','$Mail','$GioiTinh','$CMTND','$NgayCap','$NoiCap','$ThuongTru','$PhongBan','$ChucVu','$LoaiHD','$NgayVaoLV','$NgayLVCT','$ThoiDiemBDHDLD','0',$Quyen)";
@@ -48,8 +48,7 @@ if (isset($_POST['btn_addstaff'])) {
                 $time = str_replace($timeEng, $timeVie, $time);
                 $add_user_qr = mysqli_query($con, "INSERT INTO `tbl_user`(`username`, `password`, `phongban`, `name`,`google`, `quyen`) VALUES ('$username','" . md5($password) . "','$PhongBan','$fullname','$Mail','$Quyen')");
 
-                $log_sql = "INSERT INTO `tbl_logs`(`id_admin`, `status`, `time`) VALUES ('$id_admin','1','$time')";
-                $log_query = mysqli_query($con, $log_sql);
+              
 
                 $infor_sql = "INSERT INTO `tbl_images`(`username`, `name`,`images`, `status`) Values ('$username','$fullname','profile-ava.jpg','1')";
                 $infor_query = mysqli_query($con, $infor_sql);
